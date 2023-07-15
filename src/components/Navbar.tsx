@@ -1,7 +1,13 @@
 import { useRef } from "react";
 
-export const Navbar = () => {
+export interface NavbarProps {
+    panelProductRef: React.RefObject<HTMLDivElement>;
+    panelAboutRef: React.RefObject<HTMLDivElement>;
+}
+
+export const Navbar = ({ panelAboutRef, panelProductRef }: NavbarProps) => {
     const cursorRef = useRef<HTMLSpanElement | null>(null);
+
     const moveCursor = (e: any) => {
         const cursor: HTMLSpanElement | null = cursorRef.current;
         const item = e.target;
@@ -11,6 +17,20 @@ export const Navbar = () => {
         if (cursor) {
             cursor.style.width = `${rectangle.width}px`;
             cursor.style.left = `${rectangle.left - parentRectangle.left}px`;
+        }
+
+        panelProductRef.current?.classList.remove("panel--active");
+        panelAboutRef.current?.classList.remove("panel--active");
+
+        switch (item.innerHTML) {
+            case "Produits":
+                panelProductRef.current?.classList.add("panel--active");
+                break;
+            case "A propos":
+                panelAboutRef.current?.classList.add("panel--active");
+                break;
+            default: 
+                break
         }
     }
 

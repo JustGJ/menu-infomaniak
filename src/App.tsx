@@ -1,12 +1,19 @@
 import { Navbar } from './components/Navbar'
 import './App.scss'
 import { PanelProducts } from './components/PanelProducts'
+import { PanelAbout } from './components/PanelAbout'
+import { useRef } from 'react'
 
-function App() {
+const App = () => {
+
+  const panelProductRef = useRef<HTMLDivElement | null>(null);
+  const panelAboutRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <>
-      <Navbar />
-      <PanelProducts />
+      <Navbar panelAboutRef={panelAboutRef} panelProductRef={panelProductRef} />
+      <PanelProducts panelProductRef={panelProductRef} />
+      <PanelAbout panelAboutRef={panelAboutRef} />
     </>
   )
 }
